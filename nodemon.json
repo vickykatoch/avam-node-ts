@@ -1,0 +1,11 @@
+{
+  "restartable": "rs",
+  "watch": ["src/"],
+  "ext": "ts",
+  "ignore": [".git", "node_modules/**/node_modules"],
+  "verbose": true,
+  "delay": "3",
+  "execMap": {
+    "ts": "ts-node"
+  }
+}

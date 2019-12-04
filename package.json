@@ -1,0 +1,40 @@
+{
+  "name": "avam-node-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prebuild": "rm -rf dist && rm -rf build",
+    "build": "tsc --build tsconfig.json",
+    "postbuild": "cp package.json ./build && npm run bundle",
+    "prebundle": "mkdir -p ./dist && cd build && npm i",
+    "bundle": "cd build && npm pack && cp ./*.tgz ../dist",
+    "postbundle": "rm -rf build",
+    "compile": "tsc --build tsconfig.json -w",
+    "nodewatch": "nodemon ./dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vickykatoch/avam-node-ts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vickykatoch/avam-node-ts/issues"
+  },
+  "homepage": "https://github.com/vickykatoch/avam-node-ts#readme",
+  "devDependencies": {
+    "@types/express": "4.17.2",
+    "nodemon": "^2.0.1",
+    "ts-node": "^8.5.4",
+    "typescript": "3.7.2"
+  },
+  "dependencies": {
+    "express": "4.17.1"
+  },
+  "bundledDependencies": [
+    "express"
+  ]
+}
