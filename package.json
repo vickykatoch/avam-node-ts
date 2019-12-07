@@ -5,14 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prebuild": "rm -rf dist && rm -rf build",
-    "build": "tsc --build tsconfig.json",
-    "postbuild": "cp package.json ./build && npm run bundle",
-    "prebundle": "mkdir -p ./dist && cd build && npm i",
-    "bundle": "cd build && npm pack && cp ./*.tgz ../dist",
-    "postbundle": "rm -rf build",
-    "compile": "tsc --build tsconfig.json -w",
-    "nodewatch": "nodemon ./dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc --build tsconfig.json"
   },
   "repository": {
     "type": "git",
