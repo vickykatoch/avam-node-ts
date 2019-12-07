@@ -19,12 +19,12 @@ router.post('/', async (req: Request, res: Response) => {
       const env = (req.body && req.body.env) || req.headers.env || 'UNKNOWN';
       const appName = (req.body && req.body.appName) || req.headers.appName || 'UNKNOWN';
       await FileSystemUtils.writeFile(appName.toUpperCase(), env.toUpperCase(), user.toUpperCase(), 'LOGS', blob);
-      res.send('OK');
+      res.status(200).send('OK');
     } catch (err) {
-      console.error(err);
+      res.status(500).send('ERROR: ' + err.message);
     }
   } else {
-    res.status(500).send('No file present in the payload');
+    res.status(400).send('No file present in the payload');
   }
 });
 
