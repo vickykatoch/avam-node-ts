@@ -8,11 +8,11 @@ apps:
     key: 5df1ac-d77-86e-fb4-0b351f7a5
     isActive: true
 logsImagesInfo:
-  baseDirectory: C:\Users\vicky\logs
+  baseDirectory: /home/vickykatoch/logs
   archiveInterval: 7d
-  archiveTarget: C:\Users\vicky\logs\archive
+  archiveTarget: /home/vickykatoch/logs/archive
 dataInfo:
   seedFile: data/seed-db.sqlite
   archiveInterval: 7d
-  archiveTarget: C:\Users\vicky\logs\archive
+  archiveTarget: /home/vickykatoch/logs/archive
 instanceCount: 8
