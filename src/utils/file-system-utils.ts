@@ -12,30 +12,30 @@ class FileSystemUtils {
     this.baseDirectory = baseDirectory;
   }
 
-  public writeFile(appName: string, env: string, user: string, fileType: string, blob: any): Promise<boolean> {
-    return new Promise<boolean>(async (resolve, reject) => {
+  public writeFile(appName: string, env: string, user: string, fileType: string, blob: any): Promise<string> {
+    return new Promise<string>(async (resolve, reject) => {
       const ds = dateStamp();
-      const fileName = `${user}-${ds}-${shortId()}.log`;
-      const directory = await this.createDirectoryRecursively(appName, env, user, ds, fileType);
-      await blob.mv(join(directory, fileName));
-      resolve(true);
+      const directory = await this.createDirectoryRecursively(appName, env, ds, user, fileType);
+      const fileName = join(directory, `${user}-${ds}-${shortId()}.log`);
+      await blob.mv(fileName);
+      resolve(fileName);
     });
   }
 
   private async createDirectoryRecursively(...dirs: string[]): Promise<string> {
-    let dir = this.baseDirectory;
+    let directory = this.baseDirectory;
     if (Array.isArray(dirs) && dirs.length) {
       for (let i = 0; i < dirs.length; i++) {
-        dir = join(dir, dirs[i]);
-        const exist = await promisify(exists)(dir);
+        directory = join(directory, dirs[i]);
+        const exist = await promisify(exists)(directory);
         if (!exist) {
-          await promisify(mkdir)(dir);
-          const verify = await promisify(exists)(dir);
-          throwIfTrue(!verify, `Unable to create directory : ${dir}`);
+          await promisify(mkdir)(directory);
+          const verified = await promisify(exists)(directory);
+          throwIfTrue(!verified, `Unable to create directory : ${directory}`);
         }
       }
     }
-    return dir;
+    return directory;
   }
 }
 export default new FileSystemUtils();
