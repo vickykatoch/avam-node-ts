@@ -20,8 +20,7 @@ class FileSystemUtils {
       await blob.mv(fileName);
       resolve(fileName);
     });
-  }
-
+  }  
   private async createDirectoryRecursively(...dirs: string[]): Promise<string> {
     let directory = this.baseDirectory;
     if (Array.isArray(dirs) && dirs.length) {

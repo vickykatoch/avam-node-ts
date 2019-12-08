@@ -17,7 +17,7 @@ class RequestPipelinePluginsManager {
     app.use(cors());
     app.use(bodyParser.json());
     await DBHelper.init(join(__dirname, '../../config'), ['f74855-444-616-cbb-f349aa58']);
-    FileSystemUtils.init('/Users/balwinderkatoch/nodejs');
+    FileSystemUtils.init('/home/vickykatoch/logs');
     // app.enable('trust proxy');
   }
 }

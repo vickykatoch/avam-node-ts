@@ -1,3 +1,18 @@
+env: DEV
+port: 3000
 apps:
-  JXT: f74855-444-616-cbb-f349aa58
-  ECT: 5df1ac-d77-86e-fb4-0b351f7a5
+  JXT-NG: 
+    key: f74855-444-616-cbb-f349aa58   
+    isActive: true
+  ECT-NG:     
+    key: 5df1ac-d77-86e-fb4-0b351f7a5
+    isActive: true
+logsImagesInfo:
+  baseDirectory: /home/vickykatoch/logs
+  archiveInterval: 7d
+  archiveTarget: /home/vickykatoch/logs/archive
+dataInfo:
+  seedFile: data/seed-db.sqlite
+  archiveInterval: 7d
+  archiveTarget: /home/vickykatoch/logs/archive
+instanceCount: 8
