@@ -47,3 +47,7 @@ router.post('/', async (req: Request, res: Response) => {
 });
 
 export const ImagesController: Router = router;
+
+// router.get('/:imageid', (req: Request, res: Response) => {
+
+// });
