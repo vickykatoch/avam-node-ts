@@ -1,12 +1,13 @@
 import express from 'express';
 import MasterController from './controllers/master-controller';
-import { PluginsManager } from './utils';
 import { getLogger } from './utils';
 const morgan = require('morgan');
 const logger = getLogger(__filename);
 const expressLogger = {
   write: (message: string) => logger.info(message)
 };
+import bootstrap from './bootstrap/bootstrapper';
+
 const app: express.Application = express();
 const PORT = process.env.PORT || 3000;
 app.use(
@@ -15,10 +16,9 @@ app.use(
   })
 );
 
-logger.info('Starting Web Server');
-PluginsManager.inject(app);
+bootstrap(app, __dirname);
 MasterController.init(app);
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT, () => {
   logger.info(`Listening at http://localhost:${PORT}/`);
 });

@@ -4,20 +4,15 @@ apps:
   JXT-NG: 
     key: f74855-444-616-cbb-f349aa58   
     isActive: true
-    regions:
-      - NA
   ECT-NG:     
     key: 5df1ac-d77-86e-fb4-0b351f7a5
     isActive: true
-    regions:
-      - EMEA
 logsImagesInfo:
   baseDirectory: /home/vickykatoch/logs
   archiveInterval: 7d
   archiveTarget: /home/vickykatoch/logs/archive
 dataInfo:
-  dataPath: /home/vickykatoch/logs/data
+  seedFile: data/seed-db.sqlite
   archiveInterval: 7d
   archiveTarget: /home/vickykatoch/logs/archive
 instanceCount: 8
-
