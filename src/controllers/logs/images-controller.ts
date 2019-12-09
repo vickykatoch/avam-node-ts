@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
-import { FileSystemUtils } from '../../utils';
+import {  readRequestHeaderInfo, LogImageFileWriter } from '../../utils';
 import { ImageLogsRepository } from '../../repositories';
-import { LogImage } from '../../models';
+import { LogImage, IAppRequestParams } from '../../models';
 
 const router: Router = Router();
 
@@ -29,14 +29,12 @@ router.post('/', async (req: Request, res: Response) => {
   if (req.files && (req.files.upload || req.files.file)) {
     try {
       const blob = req.files.upload || req.files.file;
-      const user = (req.body && req.body.userName) || req.headers.userName;
-      const env = (req.body && req.body.env) || req.headers.env || 'UNKNOWN';
-      const appName = (req.body && req.body.appName) || req.headers.appName || 'UNKNOWN';
-      const uploadedFile = await FileSystemUtils.writeFile(appName.toUpperCase(), env.toUpperCase(), user.toUpperCase(), 'LOGS', blob);
-      const data = Object.assign(readCustomDataFromRequest(req) || {}, {
+      const reqParams = readRequestHeaderInfo(req) as IAppRequestParams;
+      const uploadedFile = await LogImageFileWriter.writeLogFile(reqParams,blob);
+      reqParams.customData = Object.assign(reqParams.customData || {}, {
         fileName: uploadedFile
       });
-      const result = await ImageLogsRepository.insertTran('JXT', user, LogImage.Image, env, data);
+      // const result = await ImageLogsRepository.insertTran('JXT', user, LogImage.Image, env, data);
       res.status(200).send('OK');
     } catch (err) {
       res.status(500).send('ERROR: ' + err.message);

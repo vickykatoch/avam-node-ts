@@ -8,9 +8,11 @@ const CONFIG_RELATIVE_PATH = 'config/app-config.yaml';
 
 class ConfigLoader {
     private _configFilePath ='';
+    private _rootDirectory='';
     private _config: any;
 
     loadAndValidate(appRootDirectory: string) {
+        this._rootDirectory = appRootDirectory;
         this._configFilePath = join(appRootDirectory,CONFIG_RELATIVE_PATH);
         throwIfTrue(!existsSync(this._configFilePath),`Application configuration file is not found in : ${this._configFilePath}`);
         const doc = safeLoad(readFileSync(this._configFilePath,'utf-8'),{ json: true});
@@ -28,10 +30,11 @@ class ConfigLoader {
         const appConfig: IAppConfig = doc as IAppConfig;
         const appMap = new Map<string, IAppInfo>()
         Object.keys(doc.apps).forEach(appName=> {
-            const { key, isActive } = doc.apps[appName];
-            isActive && appMap.set(appName, {key, isActive, name: appName});
+            const { key, isActive,regions } = doc.apps[appName];
+            isActive && appMap.set(appName, {key, isActive, name: appName, regions});
         });
         appConfig.apps=appMap;
+        appConfig.appRoot=this._rootDirectory;
         return appConfig;
     }
     private isAppsConfigSectionValid(apps: any) : boolean {

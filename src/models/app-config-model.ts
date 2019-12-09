@@ -1,6 +1,7 @@
 export interface IAppConfig {
     env: string;
     port: number;
+    appRoot: string;
     instanceCount?: number;
     apps: Map<string, IAppInfo>;
     logsImagesInfo: ILogImageInfo;
@@ -12,6 +13,7 @@ export interface IAppInfo {
     key: string;
     name: string;
     isActive?: boolean;
+    regions: string[];    
 }
 export interface ILogImageInfo {
     baseDirectory: string;
@@ -19,7 +21,7 @@ export interface ILogImageInfo {
     archiveTarget: string;
 }
 export interface IAppDataInfo {
-    seedFile: string;
+    dataPath: string;
     archiveInterval: string;
     archiveTarget: string;
 }

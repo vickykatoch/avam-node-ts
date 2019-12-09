@@ -6,7 +6,7 @@
   "scripts": {
     "prebuild": "rimraf dist && rimraf build",
     "build": "tsc --build tsconfig.json",
-    "postbuild": "cp -R config ./build && mkdir ./build/data && cp ./build/config/seed-db.sqlite ./build/data",
+    "postbuild": "cp -R config ./build && mkdir ./build/seed && cp ./build/config/seed-db.sqlite ./build/seed",
     "nodewatch": "nodemon ./build/index.js"
   },
   "repository": {
