@@ -29,8 +29,9 @@ router.post('/', async (req: Request, res: Response) => {
   if (req.files && (req.files.upload || req.files.file)) {
     try {
       const blob = req.files.upload || req.files.file;
-      const reqParams = await readRequestHeaderInfo(req) as IAppRequestParams;
-      const uploadedFile = await LogImageFileWriter.writeLogFile(reqParams,blob);
+      const reqParams = (req as any).reqParams as IAppRequestParams;
+      LogImageFileWriter.isInputValid(reqParams, true);
+      const uploadedFile = await LogImageFileWriter.writeLogFile(reqParams, blob);
       reqParams.customData = Object.assign(reqParams.customData || {}, {
         fileName: uploadedFile
       });

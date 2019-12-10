@@ -1,29 +1,30 @@
-import { IAppRequestParams } from "../models";
-import { UploadedFile } from "express-fileupload";
-import { join } from "path";
-import { promisify } from "util";
-import { mkdir, exists } from "fs";
-import { throwIfTrue, dateStamp, shortId } from "./common-utils";
-import ConfigLoader from "./config-loader";
+import { IAppRequestParams } from '../models';
+import { UploadedFile } from 'express-fileupload';
+import { join } from 'path';
+import { promisify } from 'util';
+import { mkdir, exists } from 'fs';
+import { throwIfTrue, dateStamp, shortId } from './common-utils';
+import ConfigLoader from './config-loader';
 
 class LogImageFileWriter {
-    
   writeLogFile(options: IAppRequestParams, blob: any): Promise<string> {
     return new Promise<string>(async (resolve, reject) => {
       const { appName, env, region, user } = options;
       const ds = dateStamp();
-      const directory = await this.createDirectoryRecursively(
-        appName.toLowerCase(),
-        region.toLowerCase(),
-        env.toLowerCase(),
-        user.toLowerCase(),
-        ds,
-        "logs"
-      );
-      const fileName = join(directory,`${user}-${ds}-${shortId()}.log`);
+      const directory = await this.createDirectoryRecursively(appName, region, env, user, ds, 'logs');
+      const fileName = join(directory, `${user}-${ds}-${shortId()}.zip`);
       await blob.mv(fileName);
       resolve(fileName);
     });
+  }
+  isInputValid(reqParams: IAppRequestParams, throwErrorWhenInvalid?: boolean): boolean {
+    let message = '';
+    const { user, env, region } = reqParams;
+    (!user || user.trim().length === 0) && (message = 'User name is missing from request header');
+    (!env || env.trim().length === 0) && (message = 'Application environment is missing from request header');
+    (!region || region.trim().length === 0) && (message = 'Region is missing from request header');
+    throwErrorWhenInvalid && message.length > 0 && throwIfTrue(true, message);
+    return message.length === 0;
   }
 
   private async createDirectoryRecursively(...dirs: string[]): Promise<string> {

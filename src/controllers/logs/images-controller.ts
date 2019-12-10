@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import {  readRequestHeaderInfo, LogImageFileWriter } from '../../utils';
+import { readRequestHeaderInfo, LogImageFileWriter } from '../../utils';
 import { ImageLogsRepository } from '../../repositories';
 import { LogImage, IAppRequestParams } from '../../models';
 
@@ -30,7 +30,7 @@ router.post('/', async (req: Request, res: Response) => {
     try {
       const blob = req.files.upload || req.files.file;
       const reqParams = readRequestHeaderInfo(req) as IAppRequestParams;
-      const uploadedFile = await LogImageFileWriter.writeLogFile(reqParams,blob);
+      const uploadedFile = await LogImageFileWriter.writeLogFile(reqParams, blob);
       reqParams.customData = Object.assign(reqParams.customData || {}, {
         fileName: uploadedFile
       });
@@ -45,7 +45,3 @@ router.post('/', async (req: Request, res: Response) => {
 });
 
 export const ImagesController: Router = router;
-
-// router.get('/:imageid', (req: Request, res: Response) => {
-
-// });
