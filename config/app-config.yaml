@@ -10,13 +10,13 @@ apps:
     regions:
       - EMEA
 logsImagesInfo:
-  baseDirectory: /Users/balwinderkatoch/volumes
+  baseDirectory: /home/vickykatoch/logs
   archiveInterval: 7d
-  archiveTarget: /Users/balwinderkatoch/volumes/archive
+  archiveTarget: /home/vickykatoch/logs/archive
 dataInfo:
-  dataPath: /Users/balwinderkatoch/volumes/data
+  dataPath: /home/vickykatoch/logs/data
   archiveInterval: 7d
-  archiveTarget: /Users/balwinderkatoch/volumes/archive
+  archiveTarget: /home/vickykatoch/logs/archive
 instanceCount: 8
 freeRoutes:
   - /home

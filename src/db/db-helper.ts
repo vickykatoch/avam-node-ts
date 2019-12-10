@@ -9,7 +9,7 @@ export class DBHelper {
   private _dbFilesMap = new Map<string, string>();
 
   public init() {
-    const seedFile = join(ConfigLoader.config.appRoot, "seed/seed-db.sqlite");
+    const seedFile = join(ConfigLoader.config.appRoot, "config/databases/trans-seed-db.sqlite");
     ConfigLoader.config.apps.forEach(app => {
       app.regions.forEach(region => {
         const key = `${app.name}-${region}`.toLowerCase();

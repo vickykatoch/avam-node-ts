@@ -21,3 +21,4 @@ curl -H "Content-Type: application/json" -X POST -d '{ "userName": "Bk", "env": 
 curl -X POST -F "file = ./index.js"
 
 curl -X POST http://localhost:3000/logs -F upload=@./index.js -F data='{ "userName": "bk", "env": "dev" }'
+"postbuild": "cp -R config ./build && mkdir ./build/seed && cp ./build/config/seed-db.sqlite ./build/seed",

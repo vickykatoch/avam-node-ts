@@ -1,18 +1,22 @@
 env: DEV
 port: 3000
 apps:
-  JXT-NG: 
-    key: f74855-444-616-cbb-f349aa58   
+  JXT-NG:
     isActive: true
-  ECT-NG:     
-    key: 5df1ac-d77-86e-fb4-0b351f7a5
+    regions:
+      - NA
+  ECT-NG:
     isActive: true
+    regions:
+      - EMEA
 logsImagesInfo:
-  baseDirectory: /home/vickykatoch/logs
+  baseDirectory: /Users/balwinderkatoch/volumes
   archiveInterval: 7d
-  archiveTarget: /home/vickykatoch/logs/archive
+  archiveTarget: /Users/balwinderkatoch/volumes/archive
 dataInfo:
-  seedFile: data/seed-db.sqlite
+  dataPath: /Users/balwinderkatoch/volumes/data
   archiveInterval: 7d
-  archiveTarget: /home/vickykatoch/logs/archive
+  archiveTarget: /Users/balwinderkatoch/volumes/archive
 instanceCount: 8
+freeRoutes:
+  - /home
