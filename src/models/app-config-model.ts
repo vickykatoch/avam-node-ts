@@ -22,7 +22,8 @@ export interface ILogImageInfo {
   archiveTarget: string;
 }
 export interface IAppDataInfo {
-  dataPath: string;
+  transdbPath: string;
+  usersdbPath: string;
   archiveInterval: string;
   archiveTarget: string;
 }

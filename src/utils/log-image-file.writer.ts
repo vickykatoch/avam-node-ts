@@ -7,10 +7,11 @@ import { throwIfTrue, dateStamp, shortId } from './common-utils';
 import ConfigLoader from './config-loader';
 
 class LogImageFileWriter {
+  
   writeFile(options: IAppRequestParams, blob: any, fileType: UploadFileType): Promise<string> {
     this.isInputValid(options, true);
     if (fileType === UploadFileType.Log) {
-      return this.writeLogFile(options, options);
+      return this.writeLogFile(options, blob);
     } else if (fileType === UploadFileType.Image) {
       return this.writeImageFile(options, blob);
     }

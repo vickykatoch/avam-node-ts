@@ -10,13 +10,12 @@ apps:
     regions:
       - EMEA
 logsImagesInfo:
-  baseDirectory: /Users/balwinderkatoch/volumes/logs
+  baseDirectory: /home/vickykatoch/Desktop/jqs/logs/current
   archiveInterval: 7d
-  archiveTarget: /Users/balwinderkatoch/volumes/archive
+  archiveTarget: /home/vickykatoch/Desktop/jqs/logs/archive
 dataInfo:
-  dataPath: /Users/balwinderkatoch/volumes/data
+  transdbPath: /home/vickykatoch/Desktop/jqs/data/current
+  usersdbPath: /home/vickykatoch/Desktop/jqs/data/current
   archiveInterval: 7d
-  archiveTarget: /Users/balwinderkatoch/volumes/archive
+  archiveTarget: /home/vickykatoch/Desktop/jqs/logs/archive
 instanceCount: 8
-freeRoutes:
-  - /home

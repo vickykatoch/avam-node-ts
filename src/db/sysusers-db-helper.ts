@@ -1,14 +1,22 @@
-import { ConfigLoader, throwIfTrue } from "../utils";
+import { ConfigLoader, throwIfTrue, getLogger } from "../utils";
 import { join } from "path";
-import { existsSync } from "fs";
+import { existsSync, copyFileSync } from "fs";
 import { Database } from "sqlite3";
+
+const logger = getLogger(__filename);
+
 
 class SystemUsersDBHelper {
   private dbFilePath = "";
+  
 
   init() {
-    this.dbFilePath = join(ConfigLoader.config.appRoot, "config/databases/users-db.sqlite");
-    throwIfTrue(!existsSync(this.dbFilePath), "Users database is not found");
+    this.dbFilePath = join(ConfigLoader.config.dataInfo.usersdbPath, "users-db.sqlite");
+    if(!existsSync(this.dbFilePath)) {
+      const seedFile = join(ConfigLoader.config.appRoot,'config/databases/users-db.sqlite');
+      copyFileSync(seedFile, this.dbFilePath);
+      logger.warn(`Users database file is not found at ${this.dbFilePath}, hence copied from seed file`);
+    }   
   }
 
   public executeSql(sql: string): Promise<boolean> {
