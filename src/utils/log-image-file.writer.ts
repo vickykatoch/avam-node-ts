@@ -1,4 +1,4 @@
-import { IAppRequestParams } from '../models';
+import { IAppRequestParams, UploadFileType } from '../models';
 import { UploadedFile } from 'express-fileupload';
 import { join } from 'path';
 import { promisify } from 'util';
@@ -7,7 +7,16 @@ import { throwIfTrue, dateStamp, shortId } from './common-utils';
 import ConfigLoader from './config-loader';
 
 class LogImageFileWriter {
-  writeLogFile(options: IAppRequestParams, blob: any): Promise<string> {
+  writeFile(options: IAppRequestParams, blob: any, fileType: UploadFileType): Promise<string> {
+    this.isInputValid(options, true);
+    if (fileType === UploadFileType.Log) {
+      return this.writeLogFile(options, options);
+    } else if (fileType === UploadFileType.Image) {
+      return this.writeImageFile(options, blob);
+    }
+    throw new Error('Invalid file type upload');
+  }
+  private writeLogFile(options: IAppRequestParams, blob: any): Promise<string> {
     return new Promise<string>(async (resolve, reject) => {
       const { appName, env, region, user } = options;
       const ds = dateStamp();
@@ -17,7 +26,17 @@ class LogImageFileWriter {
       resolve(fileName);
     });
   }
-  isInputValid(reqParams: IAppRequestParams, throwErrorWhenInvalid?: boolean): boolean {
+  private writeImageFile(options: IAppRequestParams, blob: any): Promise<string> {
+    return new Promise<string>(async (resolve, reject) => {
+      const { appName, env, region, user } = options;
+      const ds = dateStamp();
+      const directory = await this.createDirectoryRecursively(appName, region, env, user, ds, 'images');
+      const fileName = join(directory, `${user}-${ds}-${shortId()}.png`);
+      await blob.mv(fileName);
+      resolve(fileName);
+    });
+  }
+  private isInputValid(reqParams: IAppRequestParams, throwErrorWhenInvalid?: boolean): boolean {
     let message = '';
     const { user, env, region } = reqParams;
     (!user || user.trim().length === 0) && (message = 'User name is missing from request header');

@@ -7,7 +7,7 @@ export interface ILogImageItem {
   tag: any;
 }
 
-export enum LogImage {
+export enum UploadFileType {
   Image = 'IMAGE',
   Log = 'LOG'
 }
