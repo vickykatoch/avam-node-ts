@@ -44,3 +44,9 @@ export const readRequestHeaderInfo = (req: any): IAppRequestParams => {
   }
   throw new Error('Request header must contain: application name');
 };
+export const firstOrEmpty = (arr: any): any => {
+  if (Array.isArray(arr) && arr.length) {
+    return arr[0];
+  }
+  return undefined;
+};

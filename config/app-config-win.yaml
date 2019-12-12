@@ -10,7 +10,7 @@ apps:
     regions:
       - EMEA
 logsImagesInfo:
-  baseDirectory: /Users/balwinderkatoch/volumes
+  baseDirectory: /Users/balwinderkatoch/volumes/logs
   archiveInterval: 7d
   archiveTarget: /Users/balwinderkatoch/volumes/archive
 dataInfo:

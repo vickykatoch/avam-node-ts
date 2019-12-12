@@ -1,5 +1,5 @@
 import express from 'express';
-import MasterController from './controllers/master-controller';
+import IndexController from './controllers/index-controller';
 import { getLogger } from './utils';
 const morgan = require('morgan');
 const logger = getLogger(__filename);
@@ -17,7 +17,7 @@ app.use(
 );
 
 bootstrap(app, __dirname);
-MasterController.init(app);
+IndexController.init(app);
 
 app.listen(process.env.PORT, () => {
   logger.info(`Listening at http://localhost:${PORT}/`);
