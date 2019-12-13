@@ -3,6 +3,7 @@ import IndexController from './controllers/index-controller';
 import { getLogger } from './utils';
 const morgan = require('morgan');
 const logger = getLogger(__filename);
+
 const expressLogger = {
   write: (message: string) => logger.info(message)
 };
