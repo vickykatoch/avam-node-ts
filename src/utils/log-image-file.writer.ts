@@ -3,11 +3,11 @@ import { UploadedFile } from 'express-fileupload';
 import { join } from 'path';
 import { promisify } from 'util';
 import { mkdir, exists } from 'fs';
+import mkdirp from 'mkdirp';
 import { throwIfTrue, dateStamp, shortId } from './common-utils';
 import ConfigLoader from './config-loader';
 
 class LogImageFileWriter {
-  
   writeFile(options: IAppRequestParams, blob: any, fileType: UploadFileType): Promise<string> {
     this.isInputValid(options, true);
     if (fileType === UploadFileType.Log) {
@@ -23,8 +23,9 @@ class LogImageFileWriter {
       const ds = dateStamp();
       const directory = await this.createDirectoryRecursively(appName, region, env, user, ds, 'logs');
       const fileName = join(directory, `${user}-${ds}-${shortId()}.zip`);
-      await blob.mv(fileName);
-      resolve(fileName);
+      await blob.mv(fileName, (err: Error | any) => {
+        err ? reject(err) : resolve(fileName);
+      });
     });
   }
   private writeImageFile(options: IAppRequestParams, blob: any): Promise<string> {
@@ -54,9 +55,13 @@ class LogImageFileWriter {
         directory = join(directory, dirs[i]);
         const exist = await promisify(exists)(directory);
         if (!exist) {
-          await promisify(mkdir)(directory);
-          const verified = await promisify(exists)(directory);
-          throwIfTrue(!verified, `Unable to create directory : ${directory}`);
+          try {
+            await promisify(mkdirp)(directory);
+            const verified = await promisify(exists)(directory);
+            throwIfTrue(!verified, `Unable to create directory : ${directory}`);
+          } catch (err) {
+            Promise.reject(err);
+          }
         }
       }
     }

@@ -7,11 +7,11 @@ const expressLogger = {
   write: (message: string) => logger.info(message)
 };
 import bootstrap from './bootstrap/bootstrapper';
-
+const LOGGER_TOKENS = ':remote-addr - :remote-user :method :url :response-time ms :referrer :status';
 const app: express.Application = express();
 const PORT = process.env.PORT || 3000;
 app.use(
-  morgan('combined', {
+  morgan(LOGGER_TOKENS, {
     stream: expressLogger
   })
 );

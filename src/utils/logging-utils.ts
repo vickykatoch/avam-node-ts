@@ -7,23 +7,13 @@ const APP_LOG_DIR = join(__dirname, '../logs');
 !existsSync(APP_LOG_DIR) && mkdirSync(APP_LOG_DIR);
 const logFileName = join(APP_LOG_DIR, 'jls-logs.log');
 
-// const fileRotatetransport = new transports.DailyRotateFile({
-//   filename: 'application-%DATE%.log',
-//   datePattern: 'YYYY-MM-DD-HH',
-//   zippedArchive: true,
-//   maxSize: '50m',
-//   maxFiles: '14d'
-// });
-// fileRotatetransport.on('rotate', function(oldFilename: any, newFilename: any) {
-//   // do something fun
-// });
 const options = {
   file: {
     level: 'debug',
     filename: logFileName,
     handleExceptions: true,
-    json: false,
-    maxsize: 5242880, // 5MB
+    json: true,
+    maxsize: 100000000, // 100MB
     maxFiles: 5,
     colorize: false
   },
@@ -54,7 +44,6 @@ const logger = (caller: string) =>
   createLogger({
     format: messageFormatter(caller),
     transports: [new transports.Console(options.console), new transports.File(options.file)]
-    // new transports.File(options.file), fileRotatetransport]
   });
 
 export default logger;
