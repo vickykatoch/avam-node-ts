@@ -1,4 +1,4 @@
-export class UserRepo {
-  // sends a list of users with the log files with dates
-}
+import { ISystemUser } from '../models';
+
+export class UserRepo {}
 export default new UserRepo();

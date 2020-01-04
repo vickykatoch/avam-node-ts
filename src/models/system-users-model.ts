@@ -1,11 +1,10 @@
 export interface ISystemUser {
-  id: string;
+  sid: string;
   firstName: string;
   lastName: string;
   isActive?: boolean;
   createdOn?: number;
   lastUpdatedOn?: number;
-  roles?: IRole[];
 }
 export interface IRole {
   id: number;
@@ -13,14 +12,22 @@ export interface IRole {
   description?: string;
   isActive: boolean;
   isAdmin: boolean;
-  resources?: IResource[];
 }
 export interface IResource {
   id: number;
   name: string;
   description?: string;
   type: string;
-  identifier: string;
   isActive: boolean;
-  xclusiveAccess?: boolean;
+}
+export interface IRoleResource {
+  id: number;
+  role: number;
+  resource: number;
+  permissions: number;
+}
+export interface IUserRole {
+  id: number;
+  user: string;
+  role: number;
 }
