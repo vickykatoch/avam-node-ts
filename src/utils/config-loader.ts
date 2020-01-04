@@ -3,8 +3,8 @@ import { join } from 'path';
 import { throwIfTrue } from "./common-utils";
 import { safeLoad } from 'js-yaml';
 import { IAppConfig, IAppInfo } from '../models';
+import { argv } from 'yargs';
 
-const CONFIG_RELATIVE_PATH = 'config/app-config.yaml';
 
 class ConfigLoader {
     private _configFilePath ='';
@@ -13,7 +13,9 @@ class ConfigLoader {
 
     loadAndValidate(appRootDirectory: string) {
         this._rootDirectory = appRootDirectory;
-        this._configFilePath = join(appRootDirectory,CONFIG_RELATIVE_PATH);
+        // this._configFilePath = join(appRootDirectory,CONFIG_RELATIVE_PATH);
+        const {config} = argv;
+        this._configFilePath = config as string;
         throwIfTrue(!existsSync(this._configFilePath),`Application configuration file is not found in : ${this._configFilePath}`);
         const doc = safeLoad(readFileSync(this._configFilePath,'utf-8'),{ json: true});
         this._config = Object.freeze(this.getAppConfig(doc));

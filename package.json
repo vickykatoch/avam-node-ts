@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prebuild": "rimraf dist && rimraf build",
+    "prebuild": "rimraf dist",
     "build": "tsc --build tsconfig.json",
-    "postbuild": "cp -R config ./build",
-    "start": "nodemon ./build/index.js",
-    "cr": "mkdirp /Users/balwinderkatoch/volumes/logs/JXT-NG"
+    "postbuild" : "cp -R ./config ./dist",
+    "start": "nodemon ./dist/index.js --config=C:\\workarea\\nodejs\\avam-node-ts\\config\\app-config.yaml"
   },
   "repository": {
     "type": "git",

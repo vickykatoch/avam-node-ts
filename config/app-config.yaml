@@ -10,12 +10,12 @@ apps:
     regions:
       - EMEA
 logsImagesInfo:
-  baseDirectory: /Users/balwinderkatoch/volumes/logs
+  baseDirectory: C:\Users\vicky\logs
   archiveInterval: 7d
-  archiveTarget: /Users/balwinderkatoch/volumes/archive
+  archiveTarget: C:\Users\vicky\logs\archive
 dataInfo:
-  transdbPath: /Users/balwinderkatoch/volumes/data
-  usersdbPath: /Users/balwinderkatoch/volumes/data
+  transdbPath: C:\Users\vicky\logs\data
+  usersdbPath: C:\Users\vicky\logs\data
   archiveInterval: 7d
-  archiveTarget: /Users/balwinderkatoch/volumes/archive
+  archiveTarget: C:\Users\vicky\logs\archive
 instanceCount: 8
