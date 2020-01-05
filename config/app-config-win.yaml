@@ -14,7 +14,8 @@ logsImagesInfo:
   archiveInterval: 7d
   archiveTarget: /Users/balwinderkatoch/volumes/archive
 dataInfo:
-  dataPath: /Users/balwinderkatoch/volumes/data
+  transdbPath: /Users/balwinderkatoch/volumes/data
+  usersdbPath: /Users/balwinderkatoch/volumes/data
   archiveInterval: 7d
   archiveTarget: /Users/balwinderkatoch/volumes/archive
 instanceCount: 8

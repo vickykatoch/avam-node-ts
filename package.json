@@ -6,8 +6,9 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc --build tsconfig.json",
-    "postbuild" : "cp -R ./config ./dist",
-    "start": "nodemon ./dist/index.js --config=C:\\workarea\\nodejs\\avam-node-ts\\config\\app-config.yaml"
+    "postbuild": "cp -R ./config ./dist",
+    "start": "nodemon ./dist/index.js --config=C:\\workarea\\nodejs\\avam-node-ts\\config\\app-config.yaml",
+    "start:mac": "nodemon ./dist/index.js --config=/Users/balwinderkatoch/nodejs/avam-node-ts/config/app-config-win.yaml"
   },
   "repository": {
     "type": "git",
