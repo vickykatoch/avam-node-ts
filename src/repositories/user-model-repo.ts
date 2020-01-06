@@ -7,6 +7,7 @@ export class UserModelRepo {
     return await SystemUsersDBHelper.get<ISystemUser[]>(SQL).then(users =>
       users.map((user: any) => {
         user.sid = user.id;
+        user.isActive = user.isActive === 1;
         delete user.id;
         return user;
       })
@@ -14,7 +15,13 @@ export class UserModelRepo {
   }
   async fetchRoles(): Promise<IRole[]> {
     const SQL = 'SELECT * FROM ROLES';
-    return await SystemUsersDBHelper.get<IRole[]>(SQL);
+    return await SystemUsersDBHelper.get<IRole[]>(SQL).then(roles => {
+      return roles.map((role: any) => {
+        role.isActive = role.isActive===1;
+        role.isAdmin = role.isAdmin===1;
+        return role;
+      })
+    });
   }
   async fetchResources(): Promise<IResource[]> {
     const SQL = 'SELECT * FROM RESOURCES';
